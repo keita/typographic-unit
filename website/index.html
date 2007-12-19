@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+      TypographicUnit
+  </title>
+  <script src="javascripts/rounded_corners_lite.inc.js" type="text/javascript"></script>
+<style>
+
+</style>
+  <script type="text/javascript">
+    window.onload = function() {
+      settings = {
+          tl: { radius: 10 },
+          tr: { radius: 10 },
+          bl: { radius: 10 },
+          br: { radius: 10 },
+          antiAlias: true,
+          autoPad: true,
+          validTags: ["div"]
+      }
+      var versionBox = new curvyCorners(settings, document.getElementById("version"));
+      versionBox.applyCornersToAll();
+    }
+  </script>
+</head>
+<body>
+<div id="main">
+
+    <h1>TypographicUnit</h1>
+    <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/typographicunit"; return false'>
+      <p>Get Version</p>
+      <a href="http://rubyforge.org/projects/typographicunit" class="numbers">0.1.0</a>
+    </div>
+    <h2>What</h2>
+
+
+	<p>TypographicUnit is a library for converting between typographic units according
+to TeX. This library can handle the following units:</p>
+
+
+	<ul>
+	<li>TeX Scaled Point(sp)</li>
+		<li>TeX Point(pt)</li>
+		<li>Pica(pt)</li>
+		<li>Inch(in)</li>
+		<li>TeX Big Point(bp)</li>
+		<li>PostScript Point(ps_pt)</li>
+		<li>Meter(m)</li>
+		<li>Centimeter(cm)</li>
+		<li>Milimeter(mm)</li>
+		<li>Didot Point(dd)</li>
+		<li>Cicero(cc)</li>
+		<li>Japanese Q(q)</li>
+		<li><span class="caps">JIS</span> Point(jis_pt)</li>
+	</ul>
+
+
+	<h2>Installing</h2>
+
+
+	<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">typographicunit</span></pre></p>
+
+
+	<h2>The basics</h2>
+
+
+	<p><pre class='syntax'>
+<span class="ident">require</span> <span class="punct">&quot;</span><span class="string">typographic-unit</span><span class="punct">&quot;</span>
+
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span>          <span class="comment"># =&gt; #&lt;1cm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">.</span><span class="ident">mm</span>   <span class="comment"># =&gt; #&lt;0.9cm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span> <span class="punct">==</span> <span class="number">10</span><span class="punct">.</span><span class="ident">mm</span> <span class="comment"># =&gt; true</span>
+
+<span class="number">1</span><span class="punct">.</span><span class="ident">in</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:cm</span>          <span class="comment"># =&gt; #&lt;2.54cm&gt;</span>
+<span class="number">2.54</span><span class="punct">.</span><span class="ident">cm</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:in</span>       <span class="comment"># =&gt; #&lt;1.0in&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">in</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">.</span><span class="ident">cm</span>          <span class="comment"># =&gt; #&lt;0.606299212598425in&gt;</span>
+<span class="punct">(</span><span class="number">1</span><span class="punct">.</span><span class="ident">in</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">.</span><span class="ident">cm</span><span class="punct">)</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:cm</span> <span class="comment"># =&gt; #&lt;1.54cm&gt;</span>
+</pre></p>
+
+
+	<h2>Demonstration of usage</h2>
+
+
+	<h3>Convert</h3>
+
+
+	<p><pre class='syntax'>
+<span class="number">1</span><span class="punct">.</span><span class="ident">pt</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:mm</span>     <span class="comment"># =&gt; #&lt;0.351459803514598mm&gt;</span>
+<span class="number">7227</span><span class="punct">.</span><span class="ident">pt</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:cm</span>  <span class="comment"># =&gt; #&lt;254.0cm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">in</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:bp</span>     <span class="comment"># =&gt; #&lt;72.0bp&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">pt</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:sp</span>     <span class="comment"># =&gt; #&lt;65536.0sp&gt;</span>
+<span class="number">1157</span><span class="punct">.</span><span class="ident">pt</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:pt</span>  <span class="comment"># =&gt; #&lt;1238.0pt&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cc</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:dd</span>     <span class="comment"># =&gt; #&lt;12.0dd&gt;</span>
+<span class="number">10</span><span class="punct">.</span><span class="ident">q</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:mm</span>     <span class="comment"># =&gt; #&lt;2.5mm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">jis_pt</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:mm</span> <span class="comment"># =&gt; #&lt;0.3514mm&gt;</span>
+</pre></p>
+
+
+	<h3>Calculate</h3>
+
+
+	<p><pre class='syntax'>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">.</span><span class="ident">mm</span> <span class="comment"># =&gt; #&lt;1.1cm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">.</span><span class="ident">in</span> <span class="comment"># =&gt; #&lt;3.54cm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">pt</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">.</span><span class="ident">bp</span> <span class="comment"># =&gt; #&lt;-0.00131797426317971mm&gt;</span>
+<span class="number">100</span><span class="punct">.</span><span class="ident">ps_pt</span> <span class="punct">-</span> <span class="number">100</span><span class="punct">.</span><span class="ident">jis_pt</span> <span class="punct">&gt;&gt;</span> <span class="symbol">:mm</span> <span class="comment"># =&gt; #&lt;0.137777777777779mm&gt;</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span> <span class="punct">*</span> <span class="number">10</span>   <span class="comment"># =&gt; #&lt;10cm&gt;</span>
+</pre></p>
+
+
+	<h3>Step</h3>
+
+
+	<p><pre class='syntax'>
+<span class="ident">list</span> <span class="punct">=</span> <span class="punct">[]</span>
+<span class="number">1</span><span class="punct">.</span><span class="ident">cm</span><span class="punct">.</span><span class="ident">step</span><span class="punct">(</span><span class="number">3</span><span class="punct">.</span><span class="ident">cm</span><span class="punct">,</span> <span class="number">0.5</span><span class="punct">.</span><span class="ident">cm</span><span class="punct">)</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">i</span><span class="punct">|</span>
+  <span class="ident">list</span> <span class="punct">&lt;&lt;</span> <span class="ident">i</span>
+<span class="keyword">end</span>
+<span class="ident">list</span> <span class="comment"># =&gt; [1.cm, 1.5.cm, 2.cm, 2.5.cm, 3.cm]</span>
+</pre></p>
+
+
+	<h2>Forum</h2>
+
+
+	<p><a href="http://groups.google.com/group/ruby-typographic-unit">http://groups.google.com/group/ruby-typographic-unit</a></p>
+
+
+	<h2>How to submit patches</h2>
+
+
+	<p>Read the <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/">8 steps for fixing other people&#8217;s code</a> and for section <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups">8b: Submit patch to Google Groups</a>, use the Google Group above.</p>
+
+
+	<p>The trunk repository is <code>svn://rubyforge.org/var/svn/typographicunit/trunk</code> for anonymous access.</p>
+
+
+	<h2>License</h2>
+
+
+	<p>This code is free to use under the terms of the Ruby license.</p>
+
+
+	<h2>Links</h2>
+
+
+	<ul>
+	<li><a href="http://typographicunit.rubyforge.org/">Project Home</a></li>
+		<li><a href="http://rubyforge.org/projects/typographicunit/">RubyForge/TypographicUnit</a></li>
+	</ul>
+
+
+	<h2>Contact</h2>
+
+
+	<p>Comments are welcome. Send an email to <a href="mailto:keita.yamaguchi@gmail.com">Keita Yamaguchi</a> via the <a href="http://groups.google.com/group/ruby-typographic-unit">forum</a></p>
+    <p class="coda">
+      <a href="keita.yamaguchi@gmail.com">Keita Yamaguchi</a>, 19th December 2007<br>
+      Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
+    </p>
+</div>
+
+<!-- insert site tracking codes here, like Google Urchin -->
+
+</body>
+</html>
