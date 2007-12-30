@@ -94,6 +94,7 @@ h2. Contact
 Comments are welcome. Send an email to "Keita Yamaguchi":mailto:keita.yamaguchi@gmail.com via the "forum":http://groups.google.com/group/ruby-typographic-unit
 
 h2. Links
+
 * TypographicUnit
 ** "Project Home":http://typographicunit.rubyforge.org/
 ** "RubyForge/TypographicUnit":http://rubyforge.org/projects/typographicunit/
