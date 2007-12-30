@@ -53,6 +53,10 @@ describe TypographicUnit do
     1.jis_pt.should == 0.3514.mm
   end
 
+  it "1.american_pt == 1.jis_pt" do
+    1.american_pt.should == 1.jis_pt
+  end
+
   it "1.cm - 1.mm == 0.8.cm + 1.mm" do
     (1.cm - 1.mm).should == 0.8.cm + 1.mm
   end
@@ -277,5 +281,47 @@ describe TypographicUnit::Meter do
 
   it "0.0254m => 1in" do
     (0.0254.m >> :in).should == 1.in
+  end
+end
+
+describe TypographicUnit::Gou do
+  it "0.gou => 42.american_pt" do
+    (0.gou >> :american_pt).should == 42.american_pt
+  end
+
+  it "Gou.first => 0.gou" do
+    TypographicUnit::Gou.first.should == 0.gou
+  end
+
+  it "0.gou => 2.gou x 2" do
+    (0.gou >> :american_pt).should == (2.gou >> :american_pt) * 2
+  end
+
+  it "2.gou => 5.gou x 2" do
+    (2.gou >> :american_pt).should == (5.gou >> :american_pt) * 2
+  end
+
+  it "5.gou => 7.gou x 2" do
+    (5.gou >> :american_pt).should == (7.gou >> :american_pt) * 2
+  end
+
+  it "1.gou => 27.5.american_pt" do
+    (1.gou >> :american_pt).should == 27.5.american_pt
+  end
+
+  it "1.gou => 4.gou x 2" do
+    (1.gou >> :american_pt).should == (4.gou >> :american_pt) * 2
+  end
+
+  it "3.gou => 15.75.american_pt" do
+    (3.gou >> :american_pt).should == 15.75.american_pt
+  end
+
+  it "3.gou => 6.gou x 2" do
+    (3.gou >> :american_pt).should == (6.gou >> :american_pt) * 2
+  end
+
+  it "6.gou => 8.gou x 2" do
+    (6.gou >> :american_pt).should == (8.gou >> :american_pt) * 2
   end
 end

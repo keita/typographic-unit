@@ -17,7 +17,9 @@ to TeX. This library can handle the following units:
 * Didot Point(dd)
 * Cicero(cc)
 * Japanese Q(q)
+* American Point(american_pt)
 * JIS Point(jis_pt)
+* Japanese Gou(gou)
 
 h2. Installing
 
@@ -92,6 +94,10 @@ h2. Contact
 Comments are welcome. Send an email to "Keita Yamaguchi":mailto:keita.yamaguchi@gmail.com via the "forum":http://groups.google.com/group/ruby-typographic-unit
 
 h2. Links
-
-* "Project Home":http://typographicunit.rubyforge.org/
-* "RubyForge/TypographicUnit":http://rubyforge.org/projects/typographicunit/
+* TypographicUnit
+** "Project Home":http://typographicunit.rubyforge.org/
+** "RubyForge/TypographicUnit":http://rubyforge.org/projects/typographicunit/
+* Reference
+** "Wikipedia:活字":http://ja.wikipedia.org/wiki/%E6%B4%BB%E5%AD%97
+** "歴史の文字 記載・活字・活版 第三部 活版の世界":http://www.um.u-tokyo.ac.jp/publish_db/1996Moji/05/5901.html
+** "CyberLibrarian:文字サイズ":http://www.asahi-net.or.jp/~ax2s-kmtn/ref/type_size.html

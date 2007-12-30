@@ -65,6 +65,18 @@ hoe = Hoe.new(GEM_NAME, VERS) do |p|
   
 end
 
+Rake::RDocTask.new(:docs) do |rd|
+  rd.main = "README.txt"
+  rd.rdoc_dir = "doc"
+  Dir.glob("lib/**/*.rb") do |path| rd.rdoc_files << path end
+  rd.rdoc_files += ["README.txt", "History.txt", "License.txt"]
+  rd.title = GEM_NAME + " documentation"
+  rd.options += ["--opname", "index.html",
+                 "--line-numbers",
+                 "--inline-source",
+                 "--charset", "UTF-8"]
+end
+
 CHANGES = hoe.paragraphs_of('History.txt', 0..1).join("\\n\\n")
 PATH    = RUBYFORGE_PROJECT
 hoe.remote_rdoc_dir = File.join(PATH.gsub(/^#{RUBYFORGE_PROJECT}\/?/,''), 'rdoc')

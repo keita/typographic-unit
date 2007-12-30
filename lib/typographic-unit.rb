@@ -184,6 +184,7 @@ module TypographicUnit
     unit :sp, self, 1
   end
 
+  # TeXPoint is a unit of TeX point. 1 TeX point equals 65536 scaled point.
   class TeXPoint < Unit
     unit :pt, ScaledPoint, 65536
   end
@@ -192,6 +193,7 @@ module TypographicUnit
     unit :pc, TeXPoint, 12
   end
 
+  # Inch is a unit of inch. 7227 TeX point equals 100 inch.
   class Inch < Unit
     unit :in, TeXPoint, Rational(7227, 100)
   end
@@ -224,14 +226,68 @@ module TypographicUnit
     unit :cc, DidotPoint, 12
   end
 
-  # Japanese Q(級)
+  # Q is a unit of Japanese Q(級).
   class Q < Unit
     unit :q, Millimeter, Rational(25, 100)
   end
 
-  # JIS point
-  class JISPoint < Unit
-    unit :jis_pt, Millimeter, Rational(3514, 10000)
+  # AmericanPoint is a unit of American point.
+  # See http://www.ops.dti.ne.jp/~robundo/TMTaroY01.html for details.
+  class AmericanPoint < Unit
+    unit :american_pt, Millimeter, Rational(3514, 10000)
+  end
+
+  # JISPoint is a unit of JIS point. JIS point is just same as American point.
+  class JISPoint < AmericanPoint
+    unit :jis_pt, AmericanPoint, 1
+  end
+
+  # Gou is a unit of Japanese Gou(号).
+  # See http://www.um.u-tokyo.ac.jp/publish_db/1996Moji/05/5901.html and
+  # http://www.asahi-net.or.jp/~ax2s-kmtn/ref/type_size.html for details.
+  # In this library, "初号" is Gou.new(:first) or 0.gou.
+  class Gou < Unit
+    unit :gou, AmericanPoint, nil
+
+    def initialize(value)
+      if value.kind_of?(Unit)
+        raise ArgumentError.new, value
+      end
+      unless (0..8).include?(value) or value == :first
+        raise ArgumentError.new, value
+      end
+      @value = value
+    end
+
+    # Return a size according to "初号".
+    def self.first
+      0.gou
+    end
+
+    # Convert the value into american point.
+    def scaled_point
+      val = case @value
+            when :first, 0
+              42.american_pt
+            when 1
+              27.5.american_pt
+            when 2
+              21.american_pt
+            when 3
+              15.75.american_pt
+            when 4
+              13.75.american_pt
+            when 5
+              10.5.american_pt
+            when 6
+              7.875.american_pt
+            when 7
+              5.25.american_pt
+            when 8
+              3.9375.american_pt
+            end
+      val.kind_of?(ScaledPoint) ? val : val.scaled_point
+    end
   end
 end
 
