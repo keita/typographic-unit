@@ -8,9 +8,10 @@ Gem::Specification.new do |gem|
   gem.version       = TypographicUnit::VERSION
   gem.authors       = ["Keita Yamaguchi"]
   gem.email         = ["keita.yamaguchi@gmail.com"]
-  gem.description   = %q{typographic-unit is a Ruby library for converting between typographic units according to TeX.}
-  gem.summary       = %q{converter between typographic units}
+  gem.description   = "typographic-unit is a Ruby library for converting between typographic units by TeX\'s way."
+  gem.summary       = "converter between typographic units"
   gem.homepage      = "https://github.com/keita/typographic-unit"
+  gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
