@@ -1,12 +1,10 @@
-require File.dirname(__FILE__) + '/spec_helper.rb'
+require 'typographic-unit'
 
-TypographicUnit.open
-
-describe TypographicUnit do
+describe "TypographicUnit" do
   it "1pt == 65536sp" do
     1.pt.should == 65536.sp
-    1.pt.should_not == 65535.sp
-    1.pt.should_not == 65537.sp
+    1.pt.should.not == 65535.sp
+    1.pt.should.not == 65537.sp
   end
 
   it "1pc == 12pt" do
@@ -22,7 +20,7 @@ describe TypographicUnit do
   end
 
   it "10mm == 1cm" do
-    25.4.mm.should == 2.54.cm
+    10.mm.should == 1.cm
   end
 
   it "1cm == 10mm" do
@@ -89,7 +87,7 @@ describe Numeric do
   end
 
   it "1.cm + 1.mm == 1.1cm" do
-    (1.cm + 1.mm).should be_kind_of(TypographicUnit::Centimeter)
+    (1.cm + 1.mm).should.be.kind_of(TypographicUnit::Centimeter)
     (1.cm + 1.mm).should == 1.1.cm
   end
 
@@ -102,29 +100,29 @@ describe Numeric do
   end
 
   it "1.cm - 1.mm == 0.9cm" do
-    (1.cm - 1.mm).should be_kind_of(TypographicUnit::Centimeter)
+    (1.cm - 1.mm).should.be.kind_of(TypographicUnit::Centimeter)
     (1.cm - 1.mm).should == 0.9.cm
   end
 
   it "*" do
-    (1.cm * 10).should be_kind_of(TypographicUnit::Centimeter)
+    (1.cm * 10).should.be.kind_of(TypographicUnit::Centimeter)
     (1.cm * 10).should == 10.cm
-    Proc.new{1.cm * 10.cm}.should raise_error(ArgumentError)
+    Proc.new{1.cm * 10.cm}.should.raise(ArgumentError)
   end
 
   it "abs" do
     (-(1.cm)).abs.should == 1.cm
-    (-(1.cm)).abs.should_not == -1.cm
+    (-(1.cm)).abs.should.not == -1.cm
   end
 
   it "ceil" do
     1.5.cm.ceil.should == 2.cm
-    1.5.cm.ceil.should_not == 1.cm
+    1.5.cm.ceil.should.not == 1.cm
   end
 
   it "floor" do
     1.5.cm.floor.should == 1.cm
-    1.5.cm.floor.should_not == 2.cm
+    1.5.cm.floor.should.not == 2.cm
   end
 
   it "round" do
@@ -138,33 +136,33 @@ describe Numeric do
   end
 
   it "integer?" do
-    1.cm.should be_integer
-    1.5.cm.should_not be_integer
+    1.cm.should.be.integer
+    1.5.cm.should.not.be.integer
   end
 
   it "nonzero?" do
-    1.cm.should be_nonzero
-    0.cm.should_not be_nonzero
+    1.cm.should.be.nonzero
+    0.cm.should.not.be.nonzero
   end
 
   it "to_i" do
-    1.cm.to_i.should be_kind_of(TypographicUnit::Centimeter)
+    1.cm.to_i.should.be.kind_of(TypographicUnit::Centimeter)
     1.cm.to_i.should == 1.cm
     1.4.cm.to_i.should == 1.cm
     1.5.cm.to_i.should == 1.cm
   end
 
   it "to_int" do
-    1.cm.to_int.should be_kind_of(Integer)
+    1.cm.to_int.should.be.kind_of(Integer)
     1.cm.to_int.should == 1
     1.4.cm.to_int.should == 1
     1.5.cm.to_int.should == 1
   end
 
   it "zero?" do
-    0.cm.should be_zero
-    0.0.cm.should be_zero
-    0.1.cm.should_not be_zero
+    0.cm.should.be.zero
+    0.0.cm.should.be.zero
+    0.1.cm.should.not.be.zero
   end
 
   it "step from 1cm to 5cm" do
@@ -178,7 +176,7 @@ describe Numeric do
   it "step from 1cm to 3cm by 0.5cm" do
     list = []
     1.cm.step(3.cm, 0.5.cm) do |i|
-      i.should be_kind_of(TypographicUnit::Centimeter)
+      i.should.be.kind_of(TypographicUnit::Centimeter)
       list << i
     end
     list.should == [1.cm, 1.5.cm, 2.cm, 2.5.cm, 3.cm]
@@ -187,7 +185,7 @@ describe Numeric do
   it "step from 1cm to 3cm by 5mm" do
     list = []
     1.cm.step(3.cm, 5.mm) do |i|
-      i.should be_kind_of(TypographicUnit::Centimeter)
+      i.should.be.kind_of(TypographicUnit::Centimeter)
       list << i
     end
     list.should == [1.cm, 1.5.cm, 2.cm, 2.5.cm, 3.cm]
@@ -196,24 +194,24 @@ end
 
 describe Range do
   it "Range.new(1.cm, 5.cm) should be valid" do
-    Proc.new{1.cm..5.cm}.should_not raise_error(ArgumentError)
+    Proc.new{1.cm..5.cm}.should.not.raise(ArgumentError)
   end
 
   it "Range.new(1.cm, 1.in) should be valid" do
-    Proc.new{1.cm..1.in}.should_not raise_error(ArgumentError)
+    Proc.new{1.cm..1.in}.should.not.raise(ArgumentError)
   end
 
   it "#include should work" do
-    (1.cm..1.in).should include(25.4.mm)
-    (1.cm..1.in).should_not include(25.5.mm)
+    (1.cm..1.in).should.include(25.4.mm)
+    (1.cm..1.in).should.not.include(25.5.mm)
   end
 
   it "#each should raise a TypeError" do
-    Proc.new{(1.cm..5.cm).each{}}.should raise_error(TypeError)
+    Proc.new{(1.cm..5.cm).each{}}.should.raise(TypeError)
   end
 
   it "#step" do
-    Proc.new{(1.cm..5.cm).step{}}.should raise_error(ArgumentError)
+    Proc.new{(1.cm..5.cm).step{}}.should.raise(ArgumentError)
   end
 end
 
@@ -223,7 +221,7 @@ describe TypographicUnit::Millimeter do
   end
 
   it "1mm => 0.1cm" do
-    (1.mm >> :cm).should be_a_kind_of(TypographicUnit::Centimeter)
+    (1.mm >> :cm).should.be.kind_of(TypographicUnit::Centimeter)
     (1.mm >> :cm).should == 0.1.cm
   end
 

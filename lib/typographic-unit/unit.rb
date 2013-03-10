@@ -4,7 +4,7 @@ module TypographicUnit
     class << self
       # @api private
       def register(short, unit)
-        TypographicUnit::Table[short] = unit
+        TypographicUnit::TABLE[short] = unit
       end
       private :register
 
@@ -78,7 +78,7 @@ module TypographicUnit
     # @param other [Unit]
     #    target unit
     def >>(other)
-      oclass = other.kind_of?(Symbol) ? Table[other] : other
+      oclass = other.kind_of?(Symbol) ? TABLE[other] : other
       u = oclass.new(1)
       oclass.new((self.scaled_point.value / u.scaled_point.value).to_f)
     end
